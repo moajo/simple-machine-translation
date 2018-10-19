@@ -9,10 +9,10 @@ gpu = False
 
 
 class Encoder(torch.nn.Module):
-    def __init__(self, n_source_vocab, embedding_dim, hidden_dim):
+    def __init__(self, source_vocab_size, embedding_dim, hidden_dim):
         """
 
-        :param n_source_vocab: ソース言語の語彙数
+        :param source_vocab_size: ソース言語の語彙数
         :param embedding_dim: 単語の埋め込み(ベクトル表現)の次元数
         :param hidden_dim: LSTMの状態ベクトルの次元数
         """
@@ -20,7 +20,7 @@ class Encoder(torch.nn.Module):
 
         # 単語をベクトルに変換するModule
         # padding_idxを指定すると埋め込みの値が0に固定される。
-        self.embedding = torch.nn.Embedding(n_source_vocab, embedding_dim, padding_idx=1)
+        self.embedding = torch.nn.Embedding(source_vocab_size, embedding_dim, padding_idx=1)
         self.rnn = torch.nn.LSTM(input_size=embedding_dim, hidden_size=hidden_dim)
 
     def forward(self, xs):
